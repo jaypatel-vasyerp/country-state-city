@@ -2,6 +2,7 @@ package com.jayptl.countrystatecity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class City {
-    
+
     @Id
     @GeneratedValue
     private long id;
@@ -25,8 +26,8 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @ManyToOne
-    @JoinColumn(name = "state_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "state_id", updatable = true)
     @JsonIgnore
     private State state;
 

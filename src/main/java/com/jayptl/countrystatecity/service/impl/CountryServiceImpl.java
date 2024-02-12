@@ -29,7 +29,28 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country addNewCountry(Country country) {
+        if (countryRepository.existsById(country.getId())) {
+            updateCountry(country);
+        }
         return countryRepository.save(country);
+    }
+
+    @Override
+    public Country updateCountry(Country country) {
+        Country updatedCountry = countryRepository.findById(country.getId()).get();
+        if (country.getCountryName() != null && !country.getCountryName().isEmpty()) {
+            updatedCountry.setCountryName(country.getCountryName());
+        }
+        return countryRepository.save(updatedCountry);
+    }
+
+    @Override
+    public String deleteCountryById(long id) {
+        if (countryRepository.existsById(id)) {
+            countryRepository.deleteById(id);
+            return "Deleted";
+        }
+        throw new EntityNotFoundException("Country with id " + id + " not exists");
     }
 
 }

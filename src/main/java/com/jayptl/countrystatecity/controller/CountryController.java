@@ -1,6 +1,7 @@
 package com.jayptl.countrystatecity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,22 @@ public class CountryController {
         return responseDto;
     }
 
+    // add & update
     @PostMapping()
     public ResponseDto addNewCountry(@RequestBody Country country) {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus(200);
         responseDto.setData(countryService.addNewCountry(country));
         responseDto.setMessage("Ok");
+        return responseDto;
+    }
+
+    @DeleteMapping("/{countryId}")
+    public ResponseDto deleteCoutryById(@PathVariable(name = "countryId") long countryId){
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setStatus(200);
+        responseDto.setMessage("Ok");
+        responseDto.setData(countryService.deleteCountryById(countryId));
         return responseDto;
     }
 

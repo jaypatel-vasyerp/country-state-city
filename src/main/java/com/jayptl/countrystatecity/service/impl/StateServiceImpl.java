@@ -34,11 +34,34 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public State addNewState(StateDto stateDto, long countryId) {
+        if (stateRepository.existsById(stateDto.getId())) {
+            updateState(stateDto, countryId);
+        }
         State state = new State();
         state.setStateName(stateDto.getStateName());
         state.setCountry(countryRepository.findById(countryId)
                 .orElseThrow(() -> new EntityNotFoundException("Country with id " + countryId + " not exists")));
         return stateRepository.save(state);
+    }
+
+    @Override
+    public State updateState(StateDto stateDto, long countryId) {
+        State state = new State();
+        if (state.getStateName() != null && !state.getStateName().isEmpty()) {
+            state.setStateName(stateDto.getStateName());
+        }
+        state.setCountry(countryRepository.findById(countryId)
+                .orElseThrow(() -> new EntityNotFoundException("Country with id " + countryId + " not exists")));
+        return stateRepository.save(state);
+    }
+
+    @Override
+    public String deleteStateById(long id) {
+        if (stateRepository.existsById(id)) {
+            stateRepository.deleteById(id);
+            return "Deleted";
+        }
+        throw new EntityNotFoundException("State with id " + id + " not exists");
     }
 
 }

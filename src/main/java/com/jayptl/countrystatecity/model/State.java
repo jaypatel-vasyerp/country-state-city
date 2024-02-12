@@ -1,13 +1,15 @@
 package com.jayptl.countrystatecity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +27,8 @@ public class State {
     @Column(name = "state_name")
     private String stateName;
 
-    @ManyToOne()
-    @JoinColumn(name = "country_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id", updatable = true, nullable = true)
     @JsonIgnore
     private Country country;
 }

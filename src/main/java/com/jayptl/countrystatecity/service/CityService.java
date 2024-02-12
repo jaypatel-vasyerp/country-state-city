@@ -13,4 +13,8 @@ public interface CityService {
 
     City addNewCity(CityDto city,long stateId);
 
+    City updateCity(CityDto cityDto,long stateId);
+
+    String deleteCityById(long id);
+
 }

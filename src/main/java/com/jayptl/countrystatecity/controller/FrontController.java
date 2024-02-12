@@ -12,7 +12,6 @@ public class FrontController {
     
     @GetMapping("/")
     public ModelAndView returnIndex() {
-
         return new ModelAndView("index");
     }
     
