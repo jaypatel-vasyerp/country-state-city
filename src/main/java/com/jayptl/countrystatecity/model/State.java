@@ -1,6 +1,5 @@
 package com.jayptl.countrystatecity.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class State {
     @Column(name = "state_name")
     private String stateName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "country_id", updatable = true, nullable = true)
     @JsonIgnore
     private Country country;

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.jayptl.countrystatecity.dto.StateDto;
 import com.jayptl.countrystatecity.exception.EntityNotFoundException;
+import com.jayptl.countrystatecity.model.City;
 import com.jayptl.countrystatecity.model.State;
+import com.jayptl.countrystatecity.repository.CityRepository;
 import com.jayptl.countrystatecity.repository.CountryRepository;
 import com.jayptl.countrystatecity.repository.StateRepository;
 import com.jayptl.countrystatecity.service.StateService;
@@ -20,6 +22,9 @@ public class StateServiceImpl implements StateService {
 
     @Autowired
     private CountryRepository countryRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
 
     @Override
     public State getStateById(long id) {
@@ -58,6 +63,8 @@ public class StateServiceImpl implements StateService {
     @Override
     public String deleteStateById(long id) {
         if (stateRepository.existsById(id)) {
+            List<City> cities = cityRepository.getCitysByStateId(id);
+            cityRepository.deleteAll(cities);
             stateRepository.deleteById(id);
             return "Deleted";
         }

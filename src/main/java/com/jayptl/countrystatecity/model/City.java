@@ -1,14 +1,14 @@
 package com.jayptl.countrystatecity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "state_id", updatable = true)
     @JsonIgnore
     private State state;
