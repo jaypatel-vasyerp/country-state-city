@@ -18,12 +18,18 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country getCountryById(long id) {
-        return countryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Country with id "+ id +" not exists"));
+        return countryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Country with id " + id + " not exists"));
     }
 
     @Override
     public List<Country> getAllCountrys() {
         return countryRepository.findAll();
+    }
+
+    @Override
+    public Country addNewCountry(Country country) {
+        return countryRepository.save(country);
     }
 
 }

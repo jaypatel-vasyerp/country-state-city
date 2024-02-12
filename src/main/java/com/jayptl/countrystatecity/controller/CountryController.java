@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jayptl.countrystatecity.dto.ResponseDto;
+import com.jayptl.countrystatecity.model.Country;
 import com.jayptl.countrystatecity.service.CountryService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/country")
@@ -25,11 +28,20 @@ public class CountryController {
         return responseDto;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseDto getAllCountrys() {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setData(countryService.getAllCountrys());
         responseDto.setStatus(200);
+        responseDto.setMessage("Ok");
+        return responseDto;
+    }
+
+    @PostMapping()
+    public ResponseDto addNewCountry(@RequestBody Country country) {
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setStatus(200);
+        responseDto.setData(countryService.addNewCountry(country));
         responseDto.setMessage("Ok");
         return responseDto;
     }

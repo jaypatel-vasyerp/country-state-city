@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jayptl.countrystatecity.dto.ResponseDto;
+import com.jayptl.countrystatecity.dto.StateDto;
 import com.jayptl.countrystatecity.service.StateService;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -35,6 +37,16 @@ public class StateController {
         responseDto.setMessage("Ok");
         return responseDto;
     }
+
+    @PostMapping()
+    public ResponseDto addNewState(@RequestBody StateDto stateDto, @PathVariable(name = "countryId") long countryId) {
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setStatus(200);
+        responseDto.setMessage("Ok");
+        responseDto.setData(stateService.addNewState(stateDto, countryId));
+        return responseDto;
+    }
+    
     
     
 }

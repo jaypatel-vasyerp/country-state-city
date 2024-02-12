@@ -10,4 +10,6 @@ public interface CountryService {
 
     List<Country> getAllCountrys();
 
+    Country addNewCountry(Country country);
+
 }
